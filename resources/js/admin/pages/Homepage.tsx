@@ -8,6 +8,7 @@ interface HomepageData {
   hero_image_url: string | null; stat_years: number; stat_clients: number;
   stat_provinces: number; stat_ontime: number;
   services_title: string; services_description: string;
+  gallery_title: string; gallery_description: string;
 }
 
 export default function HomepagePage() {
@@ -55,10 +56,10 @@ export default function HomepagePage() {
       <label className="block text-sm font-semibold text-slate-700 mb-1.5">{label}</label>
       {type === 'textarea' ? (
         <textarea rows={3} value={String(data[key] ?? '')} onChange={e => setData(d => ({ ...d, [key]: e.target.value }))}
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition resize-none text-sm" />
+          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-primary-800 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent transition resize-none text-sm" />
       ) : (
         <input type={type} value={String(data[key] ?? '')} onChange={e => setData(d => ({ ...d, [key]: type === 'number' ? Number(e.target.value) : e.target.value }))}
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition text-sm" />
+          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-primary-800 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent transition text-sm" />
       )}
     </div>
   );
@@ -70,14 +71,14 @@ export default function HomepagePage() {
           <Home className="w-5 h-5 text-blue-700" />
         </div>
         <div>
-          <h1 className="text-2xl font-black text-slate-900">Homepage</h1>
+          <h1 className="text-2xl font-black text-primary-800">Homepage</h1>
           <p className="text-slate-500 text-sm">Kelola konten hero dan statistik</p>
         </div>
       </div>
       <form onSubmit={handleSave} className="space-y-6">
         {/* Hero Image */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h2 className="font-bold text-slate-900 mb-5 pb-3 border-b border-gray-100">Gambar Hero</h2>
+          <h2 className="font-bold text-primary-800 mb-5 pb-3 border-b border-gray-100">Gambar Hero</h2>
           <div className="space-y-4">
             {imagePreview && (
               <div className="relative rounded-xl overflow-hidden aspect-video">
@@ -89,7 +90,7 @@ export default function HomepagePage() {
               </div>
             )}
             <button type="button" onClick={() => fileRef.current?.click()}
-              className="flex items-center gap-2 border-2 border-dashed border-gray-200 rounded-xl px-6 py-4 text-slate-500 hover:border-orange-400 hover:text-orange-500 transition-colors w-full justify-center">
+              className="flex items-center gap-2 border-2 border-dashed border-gray-200 rounded-xl px-6 py-4 text-slate-500 hover:border-accent-400 hover:text-accent-500 transition-colors w-full justify-center">
               <Upload className="w-5 h-5" />
               {imagePreview ? 'Ganti Gambar Hero' : 'Upload Gambar Hero'}
               <span className="text-xs">(max 5MB, akan dikompres otomatis)</span>
@@ -99,7 +100,7 @@ export default function HomepagePage() {
         </div>
         {/* Hero Content */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h2 className="font-bold text-slate-900 mb-5 pb-3 border-b border-gray-100">Konten Hero</h2>
+          <h2 className="font-bold text-primary-800 mb-5 pb-3 border-b border-gray-100">Konten Hero</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {field('hero_badge', 'Badge/Label')}
             {field('hero_title', 'Judul Utama')}
@@ -111,7 +112,7 @@ export default function HomepagePage() {
         </div>
         {/* Stats */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h2 className="font-bold text-slate-900 mb-5 pb-3 border-b border-gray-100">Statistik</h2>
+          <h2 className="font-bold text-primary-800 mb-5 pb-3 border-b border-gray-100">Statistik</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {field('stat_years', 'Tahun Pengalaman', 'number')}
             {field('stat_clients', 'Klien Puas', 'number')}
@@ -121,15 +122,22 @@ export default function HomepagePage() {
         </div>
         {/* Services Heading */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h2 className="font-bold text-slate-900 mb-5 pb-3 border-b border-gray-100">Judul Seksi Layanan</h2>
+          <h2 className="font-bold text-primary-800 mb-5 pb-3 border-b border-gray-100">Judul Seksi Layanan</h2>
           <div className="space-y-4">
             {field('services_title', 'Judul Seksi Layanan')}
             {field('services_description', 'Deskripsi Seksi Layanan', 'textarea')}
           </div>
         </div>
+        <div>
+          <h3 className="font-bold text-primary-800 mb-3">Seksi Galeri</h3>
+          <div className="space-y-4">
+            {field('gallery_title', 'Judul Seksi Galeri')}
+            {field('gallery_description', 'Deskripsi Seksi Galeri', 'textarea')}
+          </div>
+        </div>
         <div className="flex items-center gap-4">
           <button type="submit" disabled={saving}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-bold px-6 py-3 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-accent-500 hover:bg-accent-600 disabled:opacity-60 text-white font-bold px-6 py-3 rounded-xl transition-colors">
             <Save className="w-4 h-4" />
             {saving ? 'Menyimpan...' : 'Simpan'}
           </button>

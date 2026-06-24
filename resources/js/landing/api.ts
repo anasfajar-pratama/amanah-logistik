@@ -25,11 +25,14 @@ export interface SiteData {
         stat_ontime: number;
         services_title: string;
         services_description: string;
+        gallery_title: string;
+        gallery_description: string;
     } | null;
     services: Array<{ id: number; title: string; description: string; image_url: string | null; icon: string; }>;
     about: { title: string; description_1: string; description_2: string; image_url: string | null; highlights: string[]; vision: string; } | null;
     advantages: Array<{ id: number; title: string; description: string; icon: string; color: string; }>;
     contact: { phone: string; email: string; address: string; maps_embed_url: string | null; office_hours: string; } | null;
+    galleries: Array<{ id: number; title: string; description: string | null; type: 'photo' | 'video'; file_url: string | null; video_url: string | null; }>;
 }
 
 export const fetchSiteData = (): Promise<SiteData> => api.get('/site-data').then(r => r.data);

@@ -46,18 +46,18 @@ export default function SettingsPage() {
   return (
     <div>
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
+        <div className="w-10 h-10 bg-accent-50 rounded-xl flex items-center justify-center">
           <Settings className="w-5 h-5 text-slate-700" />
         </div>
         <div>
-          <h1 className="text-2xl font-black text-slate-900">Pengaturan</h1>
+          <h1 className="text-2xl font-black text-primary-800">Pengaturan</h1>
           <p className="text-slate-500 text-sm">Konfigurasi umum website</p>
         </div>
       </div>
       <form onSubmit={handleSave} className="space-y-6">
         {Object.entries(grouped).map(([group, items]) => (
           <div key={group} className="bg-white rounded-2xl border border-gray-100 p-6">
-            <h2 className="font-bold text-slate-900 mb-5 pb-3 border-b border-gray-100">
+            <h2 className="font-bold text-primary-800 mb-5 pb-3 border-b border-gray-100">
               {groupLabels[group] ?? group}
             </h2>
             <div className="space-y-4">
@@ -66,10 +66,10 @@ export default function SettingsPage() {
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5">{s.label}</label>
                   {s.type === 'textarea' ? (
                     <textarea rows={3} value={values[s.key] ?? ''} onChange={e => setValues(v => ({ ...v, [s.key]: e.target.value }))}
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition resize-none text-sm" />
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-primary-800 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent transition resize-none text-sm" />
                   ) : (
                     <input type="text" value={values[s.key] ?? ''} onChange={e => setValues(v => ({ ...v, [s.key]: e.target.value }))}
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition text-sm" />
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-primary-800 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent transition text-sm" />
                   )}
                 </div>
               ))}
@@ -78,7 +78,7 @@ export default function SettingsPage() {
         ))}
         <div className="flex items-center gap-4">
           <button type="submit" disabled={saving}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-bold px-6 py-3 rounded-xl transition-colors">
+            className="flex items-center gap-2 bg-accent-500 hover:bg-accent-600 disabled:opacity-60 text-white font-bold px-6 py-3 rounded-xl transition-colors">
             <Save className="w-4 h-4" />
             {saving ? 'Menyimpan...' : 'Simpan Pengaturan'}
           </button>
