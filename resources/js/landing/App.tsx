@@ -122,7 +122,7 @@ function HomePage() {
             }`}>
               <img src="/logo-web.png" alt={companyName}
                 className={`h-10 w-auto ${!scrolled ? 'brightness-[1.2] contrast-[1.15]' : ''}`} />
-              <span className={`font-extrabold text-lg tracking-wide ${
+              <span className={`font-extrabold text-[1.43rem] tracking-wide ${
                 scrolled
                   ? 'bg-gradient-to-r from-primary-800 to-primary-600 bg-clip-text text-transparent'
                   : 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]'
@@ -722,7 +722,7 @@ function HomePage() {
             <div className="md:col-span-2">
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-white/10 backdrop-blur-sm mb-4">
                 <img src="/logo-web.png" alt={companyName} className="h-9 w-auto brightness-[1.15]" />
-                <span className="font-extrabold text-xl tracking-wide text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
+                <span className="font-extrabold text-[1.582rem] tracking-wide text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
                   {companyName}
                 </span>
               </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Truck, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { login } from '../api';
 import { useAuth } from '../App';
 
@@ -38,11 +38,11 @@ export default function Login() {
     <div className="min-h-screen bg-gradient-to-br from-primary-700 via-primary-600 to-primary-700 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-500 rounded-2xl mb-4 shadow-lg">
-            <Truck className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-28 h-28 bg-white/10 backdrop-blur-md rounded-full mb-5 shadow-2xl border border-white/20">
+            <img src="/logo-web.png" alt="Amanah Trans Logistik" className="h-20 w-auto" />
           </div>
-          <h1 className="text-2xl font-black text-white">Admin Panel</h1>
-          <p className="text-slate-400 mt-1">Amanah Trans Logistik</p>
+          <h1 className="text-2xl font-black text-white">Amanah Trans Logistik</h1>
+          <p className="text-slate-400 mt-1">Panel Administrator</p>
         </div>
         <div className="bg-white rounded-2xl shadow-2xl p-8">
           <h2 className="text-xl font-bold text-primary-800 mb-6">Masuk ke Akun Anda</h2>

@@ -28,7 +28,7 @@ export default function Galeri() {
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center gap-3">
               <img src="/logo-web.png" alt={companyName} className="h-10 w-auto" />
-              <span className="font-bold text-lg tracking-tight text-white">{companyName}</span>
+              <span className="font-bold text-[1.43rem] tracking-tight text-white">{companyName}</span>
             </div>
             <Link to="/"
               className="flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white transition-colors">

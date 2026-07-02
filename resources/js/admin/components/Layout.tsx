@@ -34,7 +34,7 @@ export default function Layout() {
   const Sidebar = () => (
     <div className="flex flex-col h-full bg-primary-700 text-white">
       <div className="flex items-center gap-3 px-5 py-6 border-b border-primary-600">
-        <img src="/logo-web.png" alt="Amanah Trans" className="h-9 w-auto" />
+        <img src="/logo-web.png" alt="Amanah Trans" className="h-6 w-auto" />
         <div>
           <p className="font-bold text-sm leading-tight">Amanah Trans</p>
           <p className="text-slate-400 text-xs">Admin Panel</p>
