@@ -24,11 +24,11 @@ export default function Galeri() {
 
       {/* HEADER */}
       <nav className="bg-primary-700 text-white sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-0 sm:px-4 md:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center gap-3">
               <img src="/logo-web.png" alt={companyName} className="h-10 w-auto" />
-              <span className="font-bold text-[1.43rem] tracking-tight text-white">{companyName}</span>
+              <span className="font-bold text-[1.216rem] md:text-[1.43rem] tracking-tight text-white">{companyName}</span>
             </div>
             <Link to="/"
               className="flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white transition-colors">

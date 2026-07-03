@@ -1,31 +1,31 @@
 {
-  "_axios-BZl9PjAN.css": {
-    "file": "assets/axios-BZl9PjAN.css",
-    "src": "_axios-BZl9PjAN.css"
-  },
-  "_axios-Dw7jRNk8.js": {
-    "file": "assets/axios-Dw7jRNk8.js",
+  "_axios-Bw45SOGJ.js": {
+    "file": "assets/axios-Bw45SOGJ.js",
     "name": "axios",
     "css": [
-      "assets/axios-BZl9PjAN.css"
+      "assets/axios-D42oVcHG.css"
     ]
   },
+  "_axios-D42oVcHG.css": {
+    "file": "assets/axios-D42oVcHG.css",
+    "src": "_axios-D42oVcHG.css"
+  },
   "resources/js/admin/main.tsx": {
-    "file": "assets/main-v5qO4bSM.js",
+    "file": "assets/main-DNRdTAqf.js",
     "name": "main",
     "src": "resources/js/admin/main.tsx",
     "isEntry": true,
     "imports": [
-      "_axios-Dw7jRNk8.js"
+      "_axios-Bw45SOGJ.js"
     ]
   },
   "resources/js/landing/main.tsx": {
-    "file": "assets/main-B9W-zE16.js",
+    "file": "assets/main-fHDT6KTs.js",
     "name": "main",
     "src": "resources/js/landing/main.tsx",
     "isEntry": true,
     "imports": [
-      "_axios-Dw7jRNk8.js"
+      "_axios-Bw45SOGJ.js"
     ]
   }
 }
