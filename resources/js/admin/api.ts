@@ -38,18 +38,18 @@ export const updateSettings = (settings: Record<string, string>) =>
 
 export const getHomepage = () => api.get('/admin/homepage').then(r => r.data);
 export const updateHomepage = (data: FormData) =>
-    api.post('/admin/homepage', data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(r => r.data);
+    api.post('/admin/homepage', data).then(r => r.data);
 
 export const getServices = () => api.get('/admin/services').then(r => r.data);
 export const createService = (data: FormData) =>
-    api.post('/admin/services', data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(r => r.data);
+    api.post('/admin/services', data).then(r => r.data);
 export const updateService = (id: number, data: FormData) =>
-    api.post(`/admin/services/${id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(r => r.data);
+    api.post(`/admin/services/${id}`, data).then(r => r.data);
 export const deleteService = (id: number) => api.delete(`/admin/services/${id}`).then(r => r.data);
 
 export const getAbout = () => api.get('/admin/about').then(r => r.data);
 export const updateAbout = (data: FormData) =>
-    api.post('/admin/about', data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(r => r.data);
+    api.post('/admin/about', data).then(r => r.data);
 
 export const getAdvantages = () => api.get('/admin/advantages').then(r => r.data);
 export const createAdvantage = (data: object) => api.post('/admin/advantages', data).then(r => r.data);
@@ -59,6 +59,13 @@ export const deleteAdvantage = (id: number) => api.delete(`/admin/advantages/${i
 export const getContact = () => api.get('/admin/contact').then(r => r.data);
 export const updateContact = (data: object) =>
     api.post('/admin/contact', data).then(r => r.data);
+
+export const getGalleries = () => api.get('/admin/galleries').then(r => r.data);
+export const createGallery = (data: FormData) =>
+    api.post('/admin/galleries', data).then(r => r.data);
+export const updateGallery = (id: number, data: FormData) =>
+    api.post(`/admin/galleries/${id}`, data).then(r => r.data);
+export const deleteGallery = (id: number) => api.delete(`/admin/galleries/${id}`).then(r => r.data);
 
 export const getSubmissions = (page = 1) => api.get('/admin/submissions', { params: { page } }).then(r => r.data);
 export const markSubmissionRead = (id: number) => api.put(`/admin/submissions/${id}/read`).then(r => r.data);

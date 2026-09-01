@@ -8,6 +8,7 @@ use App\Models\Advantage;
 use App\Models\ContactInfo;
 use App\Models\ContactSubmission;
 use App\Models\Homepage;
+use App\Models\Gallery;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Services\ImageService;
@@ -23,6 +24,7 @@ class PublicController extends Controller
         $services = Service::where('is_active', true)->orderBy('sort_order')->get();
         $about = AboutUs::first();
         $advantages = Advantage::where('is_active', true)->orderBy('sort_order')->get();
+        $galleries = Gallery::where('is_active', true)->orderBy('sort_order')->get();
         $contact = ContactInfo::first();
 
         $settings = Setting::all()->pluck('value', 'key');
@@ -39,8 +41,19 @@ class PublicController extends Controller
                 'image_url' => $imageService->url($about->image),
             ]) : null,
             'advantages' => $advantages,
+            'galleries' => $galleries->map(fn($g) => array_merge($g->toArray(), [
+                'file_url' => $g->type === 'photo' ? $imageService->url($g->file) : null,
+            ])),
             'contact' => $contact,
         ]);
+    }
+
+    public function galleries(ImageService $imageService): JsonResponse
+    {
+        $items = Gallery::where('is_active', true)->orderBy('sort_order')->get()->map(fn($g) => array_merge($g->toArray(), [
+            'file_url' => $g->type === 'photo' ? $imageService->url($g->file) : null,
+        ]));
+        return response()->json($items);
     }
 
     public function submitContact(Request $request): JsonResponse

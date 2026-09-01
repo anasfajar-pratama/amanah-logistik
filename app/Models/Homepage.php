@@ -13,5 +13,6 @@ class Homepage extends Model
         'hero_cta_primary', 'hero_cta_secondary', 'hero_image',
         'stat_years', 'stat_clients', 'stat_provinces', 'stat_ontime',
         'services_title', 'services_description',
+        'gallery_title', 'gallery_description',
     ];
 }

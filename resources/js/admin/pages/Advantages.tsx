@@ -43,23 +43,23 @@ export default function AdvantagesPage() {
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-yellow-50 rounded-xl flex items-center justify-center"><Star className="w-5 h-5 text-yellow-700" /></div>
-          <div><h1 className="text-2xl font-black text-slate-900">Keunggulan</h1><p className="text-slate-500 text-sm">Nilai dan keunggulan perusahaan</p></div>
+          <div><h1 className="text-2xl font-black text-primary-800">Keunggulan</h1><p className="text-slate-500 text-sm">Nilai dan keunggulan perusahaan</p></div>
         </div>
-        <button onClick={openCreate} className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm"><Plus className="w-4 h-4" />Tambah</button>
+        <button onClick={openCreate} className="flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold px-4 py-2.5 rounded-xl text-sm"><Plus className="w-4 h-4" />Tambah</button>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map(a => (
           <div key={a.id} className="bg-white border border-gray-100 rounded-2xl p-5">
             <div className="flex items-start justify-between mb-3">
-              <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center">
-                <Star className="w-5 h-5 text-orange-500" />
+              <div className="w-10 h-10 bg-accent-50 rounded-xl flex items-center justify-center">
+                <Star className="w-5 h-5 text-accent-500" />
               </div>
               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${a.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>{a.is_active ? 'Aktif' : 'Nonaktif'}</span>
             </div>
-            <h3 className="font-bold text-slate-900 mb-1">{a.title}</h3>
+            <h3 className="font-bold text-primary-800 mb-1">{a.title}</h3>
             <p className="text-slate-500 text-sm mb-4 line-clamp-2">{a.description}</p>
             <div className="flex items-center gap-2">
-              <button onClick={() => openEdit(a)} className="flex items-center gap-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg"><Pencil className="w-3.5 h-3.5" />Edit</button>
+              <button onClick={() => openEdit(a)} className="flex items-center gap-1.5 text-xs font-medium text-slate-600 bg-accent-50 hover:bg-accent-100 px-3 py-1.5 rounded-lg"><Pencil className="w-3.5 h-3.5" />Edit</button>
               <button onClick={() => handleDelete(a.id)} className="flex items-center gap-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg ml-auto"><Trash2 className="w-3.5 h-3.5" /></button>
             </div>
           </div>
@@ -69,30 +69,30 @@ export default function AdvantagesPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-bold text-lg text-slate-900">{modal.editing ? 'Edit Keunggulan' : 'Tambah Keunggulan'}</h2>
+              <h2 className="font-bold text-lg text-primary-800">{modal.editing ? 'Edit Keunggulan' : 'Tambah Keunggulan'}</h2>
               <button onClick={() => setModal({ open: false, editing: null })} className="p-2 hover:bg-gray-100 rounded-lg"><X className="w-5 h-5" /></button>
             </div>
             <form onSubmit={handleSave} className="p-6 space-y-4">
               <div><label className="block text-sm font-semibold text-slate-700 mb-1.5">Judul *</label>
-                <input required value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400" /></div>
+                <input required value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent-400" /></div>
               <div><label className="block text-sm font-semibold text-slate-700 mb-1.5">Deskripsi *</label>
-                <textarea required rows={3} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none" /></div>
+                <textarea required rows={3} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent-400 resize-none" /></div>
               <div className="grid grid-cols-2 gap-4">
                 <div><label className="block text-sm font-semibold text-slate-700 mb-1.5">Icon</label>
-                  <select value={form.icon} onChange={e => setForm(f => ({ ...f, icon: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                  <select value={form.icon} onChange={e => setForm(f => ({ ...f, icon: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent-400">
                     {ICONS.map(i => <option key={i}>{i}</option>)}</select></div>
                 <div><label className="block text-sm font-semibold text-slate-700 mb-1.5">Warna</label>
-                  <select value={form.color} onChange={e => setForm(f => ({ ...f, color: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                  <select value={form.color} onChange={e => setForm(f => ({ ...f, color: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent-400">
                     {COLORS.map(c => <option key={c}>{c}</option>)}</select></div>
               </div>
               <div className="flex items-center gap-3">
                 <label className="text-sm font-semibold text-slate-700">Status Aktif</label>
-                <button type="button" onClick={() => setForm(f => ({ ...f, is_active: !f.is_active }))} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.is_active ? 'bg-orange-500' : 'bg-gray-300'}`}>
+                <button type="button" onClick={() => setForm(f => ({ ...f, is_active: !f.is_active }))} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.is_active ? 'bg-accent-500' : 'bg-gray-300'}`}>
                   <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${form.is_active ? 'translate-x-6' : 'translate-x-1'}`} />
                 </button>
               </div>
               <div className="flex gap-3 pt-2">
-                <button type="submit" disabled={saving} className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-bold px-5 py-2.5 rounded-xl flex-1 justify-center"><Save className="w-4 h-4" />{saving ? 'Menyimpan...' : 'Simpan'}</button>
+                <button type="submit" disabled={saving} className="flex items-center gap-2 bg-accent-500 hover:bg-accent-600 disabled:opacity-60 text-white font-bold px-5 py-2.5 rounded-xl flex-1 justify-center"><Save className="w-4 h-4" />{saving ? 'Menyimpan...' : 'Simpan'}</button>
                 <button type="button" onClick={() => setModal({ open: false, editing: null })} className="px-5 py-2.5 border border-gray-200 rounded-xl text-slate-700 hover:bg-gray-50 font-medium">Batal</button>
               </div>
             </form>

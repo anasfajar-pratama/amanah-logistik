@@ -35,29 +35,29 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-700 via-primary-600 to-primary-700 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-500 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-500 rounded-2xl mb-4 shadow-lg">
             <Truck className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-black text-white">Admin Panel</h1>
           <p className="text-slate-400 mt-1">Amanah Trans Logistik</p>
         </div>
         <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h2 className="text-xl font-bold text-slate-900 mb-6">Masuk ke Akun Anda</h2>
+          <h2 className="text-xl font-bold text-primary-800 mb-6">Masuk ke Akun Anda</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">Email</label>
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-primary-800 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent transition"
                 placeholder="admin@contoh.com" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
               <div className="relative">
                 <input type={showPass ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} required
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 pr-12 text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 pr-12 text-primary-800 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent transition"
                   placeholder="••••••••" />
                 <button type="button" onClick={() => setShowPass(!showPass)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
@@ -69,7 +69,7 @@ export default function Login() {
               <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-600 text-sm">{error}</div>
             )}
             <button type="submit" disabled={loading}
-              className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-bold py-3.5 rounded-xl transition-colors text-base mt-2">
+              className="w-full bg-accent-500 hover:bg-accent-600 disabled:opacity-60 text-white font-bold py-3.5 rounded-xl transition-colors text-base mt-2">
               {loading ? 'Masuk...' : 'Masuk'}
             </button>
           </form>

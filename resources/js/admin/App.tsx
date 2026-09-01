@@ -9,6 +9,7 @@ import HomepagePage from './pages/Homepage';
 import ServicesPage from './pages/Services';
 import AboutUsPage from './pages/AboutUs';
 import AdvantagesPage from './pages/Advantages';
+import GalleryPage from './pages/Gallery';
 import ContactPage from './pages/Contact';
 import SubmissionsPage from './pages/Submissions';
 
@@ -27,7 +28,7 @@ export const useAuth = () => useContext(AuthContext);
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50">
+    <div className="min-h-screen flex items-center justify-center bg-accent-50">
       <div className="text-slate-500 text-lg font-medium">Memuat...</div>
     </div>
   );
@@ -59,6 +60,7 @@ export default function App() {
             <Route path="services" element={<ServicesPage />} />
             <Route path="about" element={<AboutUsPage />} />
             <Route path="advantages" element={<AdvantagesPage />} />
+            <Route path="galleries" element={<GalleryPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="submissions" element={<SubmissionsPage />} />
           </Route>

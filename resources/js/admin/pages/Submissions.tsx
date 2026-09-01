@@ -30,7 +30,7 @@ export default function SubmissionsPage() {
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center"><MessageSquare className="w-5 h-5 text-red-700" /></div>
           <div>
-            <h1 className="text-2xl font-black text-slate-900">Pesan Masuk</h1>
+            <h1 className="text-2xl font-black text-primary-800">Pesan Masuk</h1>
             <p className="text-slate-500 text-sm">{data?.total ?? 0} pesan total</p>
           </div>
         </div>
@@ -39,10 +39,10 @@ export default function SubmissionsPage() {
         <div className="lg:col-span-1 space-y-2">
           {(data?.data ?? []).map(s => (
             <button key={s.id} onClick={() => { setSelected(s); handleMarkRead(s); }}
-              className={`w-full text-left p-4 rounded-2xl border transition-all ${selected?.id === s.id ? 'border-orange-400 bg-orange-50' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
+              className={`w-full text-left p-4 rounded-2xl border transition-all ${selected?.id === s.id ? 'border-accent-400 bg-accent-50' : 'border-gray-100 bg-white hover:border-gray-200'}`}>
               <div className="flex items-start justify-between mb-1">
-                <span className="font-bold text-slate-900 text-sm">{s.name}</span>
-                {!s.is_read && <span className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0 mt-1" />}
+                <span className="font-bold text-primary-800 text-sm">{s.name}</span>
+                {!s.is_read && <span className="w-2 h-2 rounded-full bg-accent-500 flex-shrink-0 mt-1" />}
               </div>
               <p className="text-slate-500 text-xs line-clamp-2 mb-1">{s.message}</p>
               <p className="text-slate-400 text-xs">{formatDate(s.created_at)}</p>
@@ -67,7 +67,7 @@ export default function SubmissionsPage() {
             <div className="bg-white rounded-2xl border border-gray-100 p-6">
               <div className="flex items-start justify-between mb-6">
                 <div>
-                  <h2 className="text-xl font-bold text-slate-900">{selected.name}</h2>
+                  <h2 className="text-xl font-bold text-primary-800">{selected.name}</h2>
                   <p className="text-slate-500 text-sm">{formatDate(selected.created_at)}</p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -78,10 +78,10 @@ export default function SubmissionsPage() {
                 </div>
               </div>
               <div className="flex flex-wrap gap-4 mb-6">
-                <a href={`tel:${selected.phone}`} className="flex items-center gap-2 text-sm text-slate-700 bg-slate-50 px-4 py-2.5 rounded-xl hover:bg-slate-100"><Phone className="w-4 h-4 text-orange-500" />{selected.phone}</a>
-                {selected.email && <a href={`mailto:${selected.email}`} className="flex items-center gap-2 text-sm text-slate-700 bg-slate-50 px-4 py-2.5 rounded-xl hover:bg-slate-100"><Mail className="w-4 h-4 text-orange-500" />{selected.email}</a>}
+                <a href={`tel:${selected.phone}`} className="flex items-center gap-2 text-sm text-slate-700 bg-accent-50 px-4 py-2.5 rounded-xl hover:bg-accent-100"><Phone className="w-4 h-4 text-accent-500" />{selected.phone}</a>
+                {selected.email && <a href={`mailto:${selected.email}`} className="flex items-center gap-2 text-sm text-slate-700 bg-accent-50 px-4 py-2.5 rounded-xl hover:bg-accent-100"><Mail className="w-4 h-4 text-accent-500" />{selected.email}</a>}
               </div>
-              <div className="bg-slate-50 rounded-xl p-5">
+              <div className="bg-accent-50 rounded-xl p-5">
                 <p className="text-sm font-semibold text-slate-700 mb-2">Pesan:</p>
                 <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">{selected.message}</p>
               </div>
