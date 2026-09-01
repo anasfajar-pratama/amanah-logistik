@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
             ['key' => 'whatsapp_greeting','value' => 'Halo, saya ingin bertanya tentang layanan pengiriman Amanah Trans Logistik.', 'type' => 'textarea', 'group' => 'social', 'label' => 'Pesan Awal WhatsApp'],
             ['key' => 'meta_title',     'value' => 'Amanah Trans Logistik - Pengiriman Cepat, Aman, Tepat Waktu', 'type' => 'text', 'group' => 'seo', 'label' => 'Meta Title'],
             ['key' => 'meta_description','value' => 'Mitra logistik terpercaya yang menghadirkan solusi pengiriman tepat waktu dan bernilai tambah di seluruh Indonesia.', 'type' => 'textarea', 'group' => 'seo', 'label' => 'Meta Description'],
+            ['key' => 'site_title',     'value' => 'Amanah Trans Logistik', 'type' => 'text', 'group' => 'branding', 'label' => 'Judul Website'],
+            ['key' => 'favicon',        'value' => null, 'type' => 'image', 'group' => 'branding', 'label' => 'Favicon (ikon browser)'],
         ];
 
         foreach ($settings as $s) {
