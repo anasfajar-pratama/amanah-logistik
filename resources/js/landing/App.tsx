@@ -198,8 +198,8 @@ function HomePage() {
 
         {/* STATS SECTION IN HERO */}
         <div className="relative z-10 w-[88%] sm:w-[70%] lg:w-[68%] mx-auto pb-0">
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-5 sm:p-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-0 lg:divide-x lg:divide-gray-200">
+          <div className="bg-primary-700 rounded-2xl shadow-xl border border-primary-600 p-5 sm:p-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-0 lg:divide-x lg:divide-primary-600">
               {[
                 { value: hp?.stat_years ?? 10, suffix: '+', label: 'Tahun Pengalaman' },
                 { value: hp?.stat_clients ?? 500, suffix: '+', label: 'Klien Puas' },
@@ -209,10 +209,10 @@ function HomePage() {
                 <motion.div key={i} className="text-center px-1 lg:px-6"
                   initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
-                  <div className="text-3xl lg:text-4xl font-black text-primary-700 mb-1">
+                  <div className="text-3xl lg:text-4xl font-black text-white mb-1">
                     <AnimatedNumber value={s.value} />{s.suffix}
                   </div>
-                  <div className="text-xs lg:text-sm text-slate-500 font-medium uppercase tracking-wide lg:whitespace-nowrap">{s.label}</div>
+                  <div className="text-xs lg:text-sm text-white/90 font-medium uppercase tracking-wide lg:whitespace-nowrap">{s.label}</div>
                 </motion.div>
               ))}
             </div>
