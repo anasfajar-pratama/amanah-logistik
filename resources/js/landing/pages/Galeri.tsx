@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Image as ImageIcon, Video, X, ChevronRight, Truck } from 'lucide-react';
+import { Image as ImageIcon, Video, X, ChevronRight, Truck } from 'lucide-react';
 import { fetchSiteData, SiteData } from '../api';
+import Navbar from '../components/Navbar';
 
 const getYtThumb = (url: string) => {
   const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
@@ -22,24 +23,10 @@ export default function Galeri() {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
 
-      {/* HEADER */}
-      <nav className="bg-primary-700 text-white sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-0 sm:px-4 md:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center gap-3">
-              <img src="/logo-web.png" alt={companyName} className="h-10 w-auto" />
-              <span className="font-bold text-[1.216rem] md:text-[1.43rem] tracking-tight text-white">{companyName}</span>
-            </div>
-            <Link to="/"
-              className="flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white transition-colors">
-              <ArrowLeft className="w-4 h-4" /> Kembali
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar companyName={companyName} />
 
       {/* TITLE */}
-      <section className="py-16 bg-accent-50">
+      <section className="pt-28 pb-16 bg-accent-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl lg:text-5xl font-black text-primary-800 mb-4">Galeri</h1>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
