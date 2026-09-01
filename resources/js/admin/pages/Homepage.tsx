@@ -37,7 +37,7 @@ export default function HomepagePage() {
     e.preventDefault();
     setSaving(true);
     const fd = new FormData();
-    Object.entries(data).forEach(([k, v]) => { if (v !== undefined && v !== null && !k.endsWith('_url')) fd.append(k, String(v)); });
+    Object.entries(data).forEach(([k, v]) => { if (v !== undefined && v !== null && !k.endsWith('_url') && k !== 'hero_image') fd.append(k, String(v)); });
     if (imageFile) fd.append('hero_image', imageFile);
     try {
       const updated = await updateHomepage(fd);

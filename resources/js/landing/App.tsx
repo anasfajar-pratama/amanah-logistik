@@ -115,14 +115,14 @@ function HomePage() {
 
       {/* NAVBAR */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-0 sm:px-4 md:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className={`flex items-center gap-3 px-3 py-1.5 rounded-xl transition-all duration-300 ${
+            <div className={`flex items-center gap-3 px-0 md:px-3 py-1.5 rounded-xl transition-all duration-300 ${
               scrolled ? '' : 'bg-white/15 backdrop-blur-sm'
             }`}>
               <img src="/logo-web.png" alt={companyName}
                 className={`h-10 w-auto ${!scrolled ? 'brightness-[1.2] contrast-[1.15]' : ''}`} />
-              <span className={`font-extrabold text-lg tracking-wide ${
+              <span className={`font-extrabold text-[1.216rem] md:text-[1.43rem] tracking-wide ${
                 scrolled
                   ? 'bg-gradient-to-r from-primary-800 to-primary-600 bg-clip-text text-transparent'
                   : 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]'
@@ -722,7 +722,7 @@ function HomePage() {
             <div className="md:col-span-2">
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-white/10 backdrop-blur-sm mb-4">
                 <img src="/logo-web.png" alt={companyName} className="h-9 w-auto brightness-[1.15]" />
-                <span className="font-extrabold text-xl tracking-wide text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
+                <span className="font-extrabold text-[1.345rem] md:text-[1.582rem] tracking-wide text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
                   {companyName}
                 </span>
               </div>
