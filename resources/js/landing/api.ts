@@ -19,6 +19,7 @@ export interface SiteData {
         hero_cta_primary: string;
         hero_cta_secondary: string;
         hero_image_url: string | null;
+        hero_slides_url: string[];
         stat_years: number;
         stat_clients: number;
         stat_provinces: number;

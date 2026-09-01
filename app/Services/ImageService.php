@@ -27,6 +27,21 @@ class ImageService
         return $path;
     }
 
+    public function uploadFavicon(UploadedFile $file, int $size = 512, int $quality = 90): string
+    {
+        $filename = Str::uuid() . '.webp';
+        $path = 'favicon/' . $filename;
+
+        $image = Image::read($file)
+            ->contain($size, $size, 'transparent', 'center');
+
+        $encoded = $image->toWebp($quality);
+
+        Storage::disk('public')->put($path, $encoded);
+
+        return $path;
+    }
+
     public function delete(?string $path): void
     {
         if ($path && Storage::disk('public')->exists($path)) {

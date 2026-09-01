@@ -39,7 +39,7 @@ class SettingController extends Controller
                 $imageService->delete($old);
             }
 
-            $path = $imageService->upload($request->file('favicon'), 'favicon', 512);
+            $path = $imageService->uploadFavicon($request->file('favicon'));
             Setting::set('favicon', $path);
         } elseif ($request->boolean('remove_favicon')) {
             $old = Setting::get('favicon');

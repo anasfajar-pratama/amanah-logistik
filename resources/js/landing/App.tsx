@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import {
   Truck, Plane, Globe2, ShieldCheck, Clock, CheckCircle2,
-  Phone, Mail, MapPin, Menu, X, ChevronRight, Package,
+  Phone, Mail, MapPin, ChevronLeft, ChevronRight, Package, X,
   Building2, Star, Award, Users, Image as ImageIcon, Video
 } from 'lucide-react';
 import { fetchSiteData, submitContact, SiteData } from './api';
 import Galeri from './pages/Galeri';
+import Navbar from './components/Navbar';
 
 const ICON_MAP: Record<string, React.ElementType> = {
   Truck, Plane, Globe2, ShieldCheck, Clock, CheckCircle2,
@@ -42,8 +43,8 @@ function AnimatedNumber({ value }: { value: number }) {
 function HomePage() {
   const [data, setData] = useState<SiteData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [navOpen, setNavOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [hoverPaused, setHoverPaused] = useState(false);
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -62,10 +63,26 @@ function HomePage() {
 
   useEffect(() => {
     fetchSiteData().then(setData).finally(() => setLoading(false));
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const slides = (data?.homepage?.hero_slides_url?.length
+    ? data.homepage.hero_slides_url
+    : (data?.homepage?.hero_image_url ? [data.homepage.hero_image_url] : []));
+  const currentIndex = slides.length ? Math.min(slideIndex, slides.length - 1) : 0;
+
+  useEffect(() => {
+    if (slides.length <= 1 || hoverPaused) return;
+    const timer = setInterval(() => setSlideIndex(i => (i + 1) % slides.length), 6000);
+    return () => clearInterval(timer);
+  }, [slides.length, hoverPaused]);
+
+  const location = useLocation();
+  useEffect(() => {
+    if (loading || !location.hash) return;
+    const id = location.hash.slice(1);
+    const timer = setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 100);
+    return () => clearTimeout(timer);
+  }, [location.hash, loading]);
 
   const hp = data?.homepage;
   const companyName = data?.settings?.company_name ?? 'Amanah Trans Logistik';
@@ -114,85 +131,46 @@ function HomePage() {
     <div className="min-h-screen bg-white font-sans antialiased">
 
       {/* NAVBAR */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-0 sm:px-4 md:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className={`flex items-center gap-3 px-0 md:px-3 py-1.5 rounded-xl transition-all duration-300 ${
-              scrolled ? '' : 'bg-white/15 backdrop-blur-sm'
-            }`}>
-              <img src="/logo-web.png" alt={companyName}
-                className={`h-10 w-auto ${!scrolled ? 'brightness-[1.2] contrast-[1.15]' : ''}`} />
-              <span className={`font-extrabold text-[1.216rem] md:text-[1.43rem] tracking-wide ${
-                scrolled
-                  ? 'bg-gradient-to-r from-primary-800 to-primary-600 bg-clip-text text-transparent'
-                  : 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]'
-              }`}>
-                {companyName}
-              </span>
-            </div>
-            <div className="hidden md:flex items-center gap-8">
-              {[['#about', 'Tentang Kami'], ['#services', 'Layanan'], ['/galeri', 'Galeri'], ['#advantages', 'Keunggulan'], ['#contact', 'Kontak']].map(([href, label]) => (
-                href.startsWith('/')
-                  ? <Link key={href} to={href}
-                      className={`text-sm font-medium transition-colors hover:text-accent-500 ${scrolled ? 'text-slate-700' : 'text-white/90'}`}>
-                      {label}
-                    </Link>
-                  : <a key={href} href={href}
-                      className={`text-sm font-medium transition-colors hover:text-accent-500 ${scrolled ? 'text-slate-700' : 'text-white/90'}`}>
-                      {label}
-                    </a>
-              ))}
-              <a href="#contact"
-                className="bg-accent-500 hover:bg-accent-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
-                Minta Penawaran
-              </a>
-            </div>
-            <button className="md:hidden p-2" onClick={() => setNavOpen(!navOpen)}>
-              {navOpen
-                ? <X className={`w-6 h-6 ${scrolled ? 'text-primary-800' : 'text-white'}`} />
-                : <Menu className={`w-6 h-6 ${scrolled ? 'text-primary-800' : 'text-white'}`} />
-              }
-            </button>
-          </div>
-        </div>
-        {navOpen && (
-          <div className="md:hidden bg-white border-t border-gray-100 py-4 px-4 space-y-3">
-            {[['#about', 'Tentang Kami'], ['#services', 'Layanan'], ['/galeri', 'Galeri'], ['#advantages', 'Keunggulan'], ['#contact', 'Kontak']].map(([href, label]) => (
-              href.startsWith('/')
-                ? <Link key={href} to={href} onClick={() => setNavOpen(false)}
-                    className="block text-slate-700 font-medium py-2 hover:text-accent-500">{label}</Link>
-                : <a key={href} href={href} onClick={() => setNavOpen(false)}
-                    className="block text-slate-700 font-medium py-2 hover:text-accent-500">{label}</a>
-            ))}
-            <a href="#contact" onClick={() => setNavOpen(false)}
-              className="block bg-accent-500 text-white text-center font-semibold py-2.5 rounded-full">
-              Minta Penawaran
-            </a>
-          </div>
-        )}
-      </nav>
+      <Navbar companyName={companyName} />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex flex-col overflow-hidden"
+        onMouseEnter={() => setHoverPaused(true)} onMouseLeave={() => setHoverPaused(false)}>
         <div className="absolute inset-0 z-0">
-          {hp?.hero_image_url
-            ? <img src={hp.hero_image_url} alt="Hero" className="w-full h-full object-cover" />
-            : <div className="w-full h-full bg-gradient-to-br from-primary-700 via-primary-600 to-primary-700" />
-          }
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-700/95 via-primary-700/75 to-primary-700/40" />
+          {slides.length > 0 ? slides.map((url, i) => (
+            <div key={url + i} className={`absolute inset-0 transition-opacity duration-1000 ${i === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
+              <img src={url} alt="Hero" className={`w-full h-full object-cover ${i === currentIndex ? 'hero-ken-burns' : ''}`} />
+            </div>
+          )) : (
+            <div className="w-full h-full bg-gradient-to-br from-primary-700 via-primary-600 to-primary-700" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-black/10" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/45 to-transparent" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-          <div className="max-w-2xl">
+        {slides.length > 1 && (
+          <>
+            <button onClick={() => setSlideIndex(i => (i - 1 + slides.length) % slides.length)} aria-label="Slide sebelumnya"
+              className="hidden md:flex absolute left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full border border-white/40 text-white bg-black/25 backdrop-blur-sm items-center justify-center hover:bg-white/25 transition-colors">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button onClick={() => setSlideIndex(i => (i + 1) % slides.length)} aria-label="Slide berikutnya"
+              className="hidden md:flex absolute right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full border border-white/40 text-white bg-black/25 backdrop-blur-sm items-center justify-center hover:bg-white/25 transition-colors">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </>
+        )}
+        <div className="relative z-10 w-full max-w-7xl px-0 sm:px-4 md:px-6 lg:px-8 flex-1 flex items-center pt-24 pb-10">
+          <div className="max-w-2xl md:pl-3 lg:pl-[10%]">
             <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
               <span className="inline-flex items-center gap-2 bg-accent-500/20 text-accent-400 border border-accent-500/30 text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full mb-6">
                 {hp?.hero_badge ?? 'Cepat, Aman, dan Tepat Waktu'}
               </span>
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight mb-6">
+              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
                 {hp?.hero_title ?? 'Mitra Logistik'}{' '}
                 <span className="text-accent-400">{hp?.hero_highlight ?? 'Terpercaya'}</span>{' '}
                 {!hp?.hero_title && 'Anda'}
               </h1>
-              <p className="text-lg text-slate-300 mb-10 leading-relaxed max-w-xl">
+              <p className="text-lg text-slate-300 mb-10 leading-relaxed max-w-xl drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
                 {hp?.hero_description ?? 'Kami adalah solusi pengiriman kargo darat dan udara ke seluruh Indonesia. Memastikan setiap barang Anda tiba dengan aman dan tepat waktu.'}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -209,32 +187,35 @@ function HomePage() {
             </motion.div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-2 bg-white/60 rounded-full" />
-          </div>
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section className="py-16 bg-primary-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: hp?.stat_years ?? 10, suffix: '+', label: 'Tahun Pengalaman' },
-              { value: hp?.stat_clients ?? 500, suffix: '+', label: 'Klien Puas' },
-              { value: hp?.stat_provinces ?? 34, suffix: '', label: 'Provinsi Terlayani' },
-              { value: hp?.stat_ontime ?? 99, suffix: '%', label: 'Pengiriman Tepat Waktu' },
-            ].map((s, i) => (
-              <motion.div key={i} className="text-center"
-                initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
-                <div className="text-4xl md:text-5xl font-black text-accent-400 mb-2">
-                  <AnimatedNumber value={s.value} />{s.suffix}
-                </div>
-                <div className="text-sm text-slate-400 font-medium uppercase tracking-wider">{s.label}</div>
-              </motion.div>
+        {slides.length > 1 && (
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 flex justify-center">
+            {slides.map((_, i) => (
+              <button key={i} onClick={() => setSlideIndex(i)} aria-label={`Slide ${i + 1}`}
+                className={`h-2.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-6 bg-white' : 'w-2.5 bg-white/60 hover:bg-white/80'}`} />
             ))}
+          </div>
+        )}
+
+        {/* STATS SECTION IN HERO */}
+        <div className="relative z-10 w-[88%] sm:w-[70%] lg:w-[68%] mx-auto pb-0">
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-5 sm:p-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-0 lg:divide-x lg:divide-gray-200">
+              {[
+                { value: hp?.stat_years ?? 10, suffix: '+', label: 'Tahun Pengalaman' },
+                { value: hp?.stat_clients ?? 500, suffix: '+', label: 'Klien Puas' },
+                { value: hp?.stat_provinces ?? 34, suffix: '', label: 'Provinsi Terlayani' },
+                { value: hp?.stat_ontime ?? 99, suffix: '%', label: 'Pengiriman Tepat Waktu' },
+              ].map((s, i) => (
+                <motion.div key={i} className="text-center px-1 lg:px-6"
+                  initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
+                  <div className="text-3xl lg:text-4xl font-black text-primary-700 mb-1">
+                    <AnimatedNumber value={s.value} />{s.suffix}
+                  </div>
+                  <div className="text-xs lg:text-sm text-slate-500 font-medium uppercase tracking-wide lg:whitespace-nowrap">{s.label}</div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

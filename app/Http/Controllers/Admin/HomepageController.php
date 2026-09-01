@@ -15,6 +15,11 @@ class HomepageController extends Controller
         $homepage = Homepage::firstOrNew([]);
         return response()->json(array_merge($homepage->toArray(), [
             'hero_image_url' => $imageService->url($homepage->hero_image),
+            'hero_slides_url' => collect($homepage->hero_slides ?? [])
+                ->map(fn($path) => $imageService->url($path))
+                ->filter()
+                ->values()
+                ->all(),
         ]));
     }
 
@@ -28,6 +33,9 @@ class HomepageController extends Controller
             'hero_cta_primary'    => 'nullable|string|max:100',
             'hero_cta_secondary'  => 'nullable|string|max:100',
             'hero_image'          => 'nullable|image|max:5120',
+            'hero_slides'         => 'nullable|array',
+            'hero_slides.*'       => 'nullable|image|max:5120',
+            'remove_hero_slides'  => 'nullable|array',
             'stat_years'          => 'nullable|integer',
             'stat_clients'        => 'nullable|integer',
             'stat_provinces'      => 'nullable|integer',
@@ -45,10 +53,36 @@ class HomepageController extends Controller
             unset($data['hero_image']);
         }
 
+        // Build/merge hero slides
+        $slides = $homepage->hero_slides ?? [];
+        $removeKeys = $request->input('remove_hero_slides', []);
+        if (!empty($removeKeys)) {
+            foreach ($removeKeys as $key) {
+                if (isset($slides[$key])) {
+                    $imageService->delete($slides[$key]);
+                    unset($slides[$key]);
+                }
+            }
+            $slides = array_values($slides);
+        }
+
+        if ($request->hasFile('hero_slides')) {
+            foreach ($request->file('hero_slides') as $file) {
+                $slides[] = $imageService->upload($file, 'homepage', 1920);
+            }
+        }
+
+        $data['hero_slides'] = $slides;
+
         $homepage->fill($data)->save();
 
         return response()->json(array_merge($homepage->toArray(), [
             'hero_image_url' => $imageService->url($homepage->hero_image),
+            'hero_slides_url' => collect($homepage->hero_slides ?? [])
+                ->map(fn($path) => $imageService->url($path))
+                ->filter()
+                ->values()
+                ->all(),
         ]));
     }
 }

@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Settings
     Route::get('/admin/settings', [SettingController::class, 'index']);
-    Route::put('/admin/settings', [SettingController::class, 'update']);
+    Route::post('/admin/settings', [SettingController::class, 'update']);
 
     // Homepage
     Route::get('/admin/homepage', [HomepageController::class, 'show']);

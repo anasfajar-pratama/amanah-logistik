@@ -35,6 +35,11 @@ class PublicController extends Controller
             ]),
             'homepage' => $homepage ? array_merge($homepage->toArray(), [
                 'hero_image_url' => $imageService->url($homepage->hero_image),
+                'hero_slides_url' => collect($homepage->hero_slides ?? [])
+                    ->map(fn($path) => $imageService->url($path))
+                    ->filter()
+                    ->values()
+                    ->all(),
             ]) : null,
             'services' => $services->map(fn($s) => array_merge($s->toArray(), [
                 'image_url' => $imageService->url($s->image),

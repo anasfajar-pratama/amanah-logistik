@@ -34,7 +34,7 @@ export const getUser = () => api.get('/admin/user').then(r => r.data);
 
 export const getSettings = () => api.get('/admin/settings').then(r => r.data);
 export const updateSettings = (formData: FormData) =>
-    api.put('/admin/settings', formData).then(r => r.data);
+    api.post('/admin/settings', formData).then(r => r.data);
 
 export const getHomepage = () => api.get('/admin/homepage').then(r => r.data);
 export const updateHomepage = (data: FormData) =>
